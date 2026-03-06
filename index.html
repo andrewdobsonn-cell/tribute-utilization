@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tribute Caregiver Utilization Report</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #F1F5F9;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+    }
+    .header {
+      background: #0F2647;
+      padding: 32px 36px;
+    }
+    .header h1 {
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .header p {
+      color: #93C5FD;
+      font-size: 13px;
+    }
+    .body {
+      padding: 36px;
+    }
+    .upload-group {
+      margin-bottom: 24px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #44546A;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .upload-box {
+      border: 2px dashed #CBD5E1;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .upload-box:hover { border-color: #2C4A7C; background: #F8FAFC; }
+    .upload-box.has-file { border-color: #22C55E; background: #F0FDF4; }
+    .upload-box input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .upload-icon { font-size: 28px; margin-bottom: 8px; }
+    .upload-text { font-size: 13px; color: #64748B; }
+    .upload-text strong { color: #2C4A7C; }
+    .file-name {
+      font-size: 12px;
+      color: #16A34A;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #0F2647;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .btn:hover { background: #2C4A7C; }
+    .btn:disabled { background: #94A3B8; cursor: not-allowed; }
+    .status {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      display: none;
+    }
+    .status.processing {
+      background: #DBEAFE;
+      color: #1E40AF;
+      display: block;
+    }
+    .status.error {
+      background: #FEE2E2;
+      color: #991B1B;
+      display: block;
+    }
+    .status.success {
+      background: #D1FAE5;
+      color: #065F46;
+      display: block;
+    }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid #93C5FD;
+      border-top-color: #1E40AF;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .footer {
+      padding: 16px 36px;
+      border-top: 1px solid #F1F5F9;
+      font-size: 11px;
+      color: #94A3B8;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <h1>Caregiver Utilization Report</h1>
+      <p>Tribute Home Care — Weekly Report Generator</p>
+    </div>
+    <div class="body">
+      <div class="upload-group">
+        <label>Caregiver Data CSV</label>
+        <div class="upload-box" id="box-cg">
+          <input type="file" id="file-cg" accept=".csv" onchange="fileSelected('cg')">
+          <div class="upload-icon">📋</div>
+          <div class="upload-text"><strong>Click to upload</strong> or drag and
